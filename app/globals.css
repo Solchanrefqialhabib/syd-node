@@ -1,26 +1,108 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  body {
+    /* Kembali ke background gelap */
+    @apply bg-dark-200 text-gray-200;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* --- Latar Belakang Aurora & Grid --- */
+
+/* Animasi untuk gradien aurora */
+@keyframes move-aurora {
+  0% { transform: translate(0%, 0%) rotate(0deg); }
+  25% { transform: translate(5%, 10%) rotate(10deg); }
+  50% { transform: translate(10%, 5%) rotate(20deg); }
+  75% { transform: translate(5%, 0%) rotate(10deg); }
+  100% { transform: translate(0%, 0%) rotate(0deg); }
+}
+
+/* Animasi untuk grid */
+@keyframes move-grid {
+  from { background-position: 0 0; }
+  to { background-position: 80px 80px; }
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  
+  /* Layer 1: Gradien Aurora */
+  background: 
+    radial-gradient(circle at 10% 20%, theme('colors.primary/0.15'), transparent 35%),
+    radial-gradient(circle at 90% 80%, theme('colors.accentGlow/0.15'), transparent 40%),
+    radial-gradient(circle at 50% 50%, theme('colors.primary/0.05'), transparent 30%);
+  
+  animation: move-aurora 15s ease-in-out infinite;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  
+  /* Layer 2: Grid Halus di atas Aurora */
+  background-image: 
+    linear-gradient(to right, theme('colors.primary/0.05') 1px, transparent 1px),
+    linear-gradient(to bottom, theme('colors.primary/0.05') 1px, transparent 1px);
+  background-size: 80px 80px;
+  animation: move-grid 4s linear infinite;
+  opacity: 0.5;
+}
+
+
+/* --- Efek Kartu & Tombol (dari resep sebelumnya) --- */
+
+.shining-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.shining-card::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 250%; /* Perbesar agar kilauan lebih dramatis */
+  height: 250%;
+  background: conic-gradient(
+    transparent,
+    theme('colors.accentGlow'),
+    theme('colors.primary'),
+    transparent 20%
+  );
+  transform: translate(-50%, -50%);
+  animation: rotate 4s linear infinite;
+  opacity: 0;
+  transition: opacity 0.4s ease-in-out;
+}
+
+.shining-card:hover::before {
+  opacity: 0.7;
+}
+
+@keyframes rotate {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.animated-button {
+  background-size: 200% auto;
+  transition: background-position 0.5s ease;
+}
+
+.animated-button:hover {
+  background-position: right center;
 }
