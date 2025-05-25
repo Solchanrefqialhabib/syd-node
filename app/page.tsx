@@ -1,128 +1,102 @@
+// app/page.tsx
+'use client';
+
 import { FaDiscord, FaGlobe, FaBook, FaCode } from "react-icons/fa";
-import Link from "next/link";
-import { AnimatedDiv } from "./components/AnimatedDiv";
+import Link from "next/link"; // Tetap impor Link untuk link internal
+// Pastikan path ini benar
+import { AnimatedDiv } from "./components/AnimatedDiv"; 
 import { ThemeSwitcher } from "./components/ThemeSwitcher";
 
-// Tipe CardLink tetap sama
 type CardLink = {
   icon: React.ReactNode;
   title: string;
   description: string;
   link: string;
+  isExternal?: boolean; // Pastikan properti ini ada
 };
 
-// Data cardLinks tetap sama
 const cardLinks: CardLink[] = [
   {
     icon: <FaDiscord className="h-8 w-8 text-primary" />,
-    title: "Join My Discord",
+    title: "Join Discord", // Nama sudah benar
     description: "Komunitas para developer SYD.",
-    link: "#",
+    link: "https://maouam.nodelab.my.id/", // Ganti dengan URL undangan Discord Anda
+    isExternal: true, // Tandai sebagai link eksternal
   },
   {
     icon: <FaGlobe className="h-8 w-8 text-primary" />,
     title: "My Website",
     description: "Lihat portofolio lengkapku di sini.",
-    link: "#",
+    link: "#", // Ganti jika ada URL
+    isExternal: true, // Jika ini link eksternal
   },
   {
     icon: <FaBook className="h-8 w-8 text-primary" />,
     title: "Tutor All Node",
     description: "Panduan lengkap seputar node.",
-    // --- UBAH BARIS INI ---
-    link: "/tutor", // Arahkan ke halaman utama tutorial
+    link: "/tutor", 
+    isExternal: false, // Link internal
   },
   {
     icon: <FaCode className="h-8 w-8 text-primary" />,
     title: "Build this web",
     description: "Source code website ini.",
-    link: "#",
+    link: "#", // Ganti jika ada URL
+    isExternal: true, // Jika ini link eksternal
   },
 ];
 
 export default function HomePage() {
   return (
     <div className="relative w-full overflow-x-hidden bg-gray-100 dark:bg-dark-200">
-      <nav className="absolute top-0 left-0 w-full p-4 z-20">
-        <div className="container mx-auto flex justify-between items-center">
-          <h2 className="text-xl font-bold text-gray-900 dark:text-white">SYD Node</h2>
-          <ThemeSwitcher />
-        </div>
-      </nav>
+      {/* ... Navbar Anda ... */}
 
-      <main className="container mx-auto px-6 pt-32">
-        <section className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center min-h-[80vh]">
-          <div className="flex flex-col gap-4 text-center md:text-left z-10">
-            <AnimatedDiv>
-              <h1 className="text-5xl md:text-7xl font-bold text-gray-900 dark:text-primary dark:animate-breathingGlow">
-                SYD Node
-              </h1>
-            </AnimatedDiv>
-            <AnimatedDiv delay={0.2}>
-              <div className="inline-block">
-                <p className="font-mono text-lg md:text-xl text-gray-600 dark:text-gray-300 overflow-hidden border-r-4 border-r-accentGlow whitespace-nowrap mx-auto md:mx-0 animate-typing">
-                  Keep learning by siting!
-                </p>
-              </div>
-            </AnimatedDiv>
-            <AnimatedDiv delay={0.4}>
-              <p className="text-gray-500 dark:text-gray-400 mt-2">
-                Platform untuk para antusias teknologi, node runner, dan developer yang suka bereksperimen.
-              </p>
-            </AnimatedDiv>
-            <AnimatedDiv delay={0.6}>
-              <div className="mt-6">
-                <a
-                  href="#tools"
-                  className="animated-button inline-block px-8 py-3 bg-gradient-to-r from-primary to-accentGlow text-white dark:text-dark-200 font-bold rounded-lg shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl"
-                >
-                  Explore Tools
-                </a>
-              </div>
-            </AnimatedDiv>
-          </div>
+      <main className="container mx-auto px-4 sm:px-6 pt-24 md:pt-32 pb-16">
+        {/* ... Hero Section Anda ... */}
 
-          {/* --- BAGIAN VISUAL DIGANTI DENGAN DOTLOTTIE-PLAYER --- */}
-          <AnimatedDiv delay={0.3}>
-            <div className="flex items-center justify-center p-4 md:p-8 h-full">
-              <div className="w-full max-w-md"> {/* Atur lebar maksimum untuk kontainer animasi */}
-                <dotlottie-player
-                  src="https://lottie.host/bda12c3d-37ae-49c8-864e-047a0df724eb/KR9qZztbfE.lottie"
-                  background="transparent"
-                  speed="1"
-                  style={{ width: '300%', height: 'auto', maxWidth: '400px', margin: 'auto' }} // Style agar responsif dan terpusat
-                  loop
-                  autoplay
-                ></dotlottie-player>
-              </div>
-            </div>
-          </AnimatedDiv>
-        </section>
-
-        {/* Bagian Card Section tetap sama */}
-        <section id="tools" className="py-20">
+        <section id="tools" className="py-16 md:py-20">
           <AnimatedDiv>
-            <h2 className="text-4xl font-bold text-center mb-12 text-gray-900 dark:text-white">
+            <h2 className="text-3xl sm:text-4xl font-bold text-center mb-12 text-gray-900 dark:text-white">
               Welcome!
             </h2>
           </AnimatedDiv>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
             {cardLinks.map((item, index) => (
               <AnimatedDiv key={index} delay={0.1 * index}>
-                <Link
-                  href={item.link}
-                  className="shining-card group block p-6 bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl shadow-lg dark:backdrop-blur-lg transition-all duration-300 hover:-translate-y-2"
-                >
-                  <div className="relative z-10">
-                    <div className="mb-4 text-gray-700 dark:text-primary group-hover:text-accentGlow transition-colors duration-300 transform group-hover:scale-110">
-                      {item.icon}
+                {/* --- INI BAGIAN PENTING YANG PERLU DIPERBAIKI --- */}
+                {item.isExternal ? (
+                  <a
+                    href={item.link}
+                    target="_blank" // Buka di tab baru
+                    rel="noopener noreferrer" // Keamanan untuk link eksternal
+                    className="shining-card group block p-6 bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl shadow-lg dark:backdrop-blur-lg transition-all duration-300 hover:-translate-y-2"
+                  >
+                    <div className="relative z-10">
+                      <div className="mb-4 text-gray-700 dark:text-primary group-hover:text-accentGlow transition-colors duration-300 transform group-hover:scale-110">
+                        {item.icon}
+                      </div>
+                      <h3 className="text-xl sm:text-2xl font-bold text-gray-800 dark:text-white">
+                        {item.title}
+                      </h3>
+                      <p className="mt-2 text-sm sm:text-base text-gray-500 dark:text-gray-400">{item.description}</p>
                     </div>
-                    <h3 className="text-2xl font-bold text-gray-800 dark:text-white">
-                      {item.title}
-                    </h3>
-                    <p className="mt-2 text-gray-500 dark:text-gray-400">{item.description}</p>
-                  </div>
-                </Link>
+                  </a>
+                ) : (
+                  <Link
+                    href={item.link}
+                    className="shining-card group block p-6 bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-xl shadow-lg dark:backdrop-blur-lg transition-all duration-300 hover:-translate-y-2"
+                  >
+                    <div className="relative z-10">
+                      <div className="mb-4 text-gray-700 dark:text-primary group-hover:text-accentGlow transition-colors duration-300 transform group-hover:scale-110">
+                        {item.icon}
+                      </div>
+                      <h3 className="text-xl sm:text-2xl font-bold text-gray-800 dark:text-white">
+                        {item.title}
+                      </h3>
+                      <p className="mt-2 text-sm sm:text-base text-gray-500 dark:text-gray-400">{item.description}</p>
+                    </div>
+                  </Link>
+                )}
               </AnimatedDiv>
             ))}
           </div>

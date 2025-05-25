@@ -1,6 +1,7 @@
 // --- PATH IMPOR SUDAH DIPERBAIKI SESUAI STRUKTUR ANDA ---
 import { CodeBlock } from '../../components/CodeBlock'; // Naik dua level, lalu masuk ke components
 import { OnThisPage } from '../../components/OnThisPage'; // Naik dua level, lalu masuk ke components
+import { PrevNextButtons } from '../../../components/PrevNextButtons'; // <-- 1. TAMBAHKAN IMPOR INI
 
 const headings = [
   { id: 'system-specs', text: 'System Specs', level: 2 },
@@ -121,6 +122,8 @@ sudo systemctl status docker`}</CodeBlock>
             </ol>
           </div>
         </section>
+                {/* Komponen PrevNextButtons dipanggil di sini */}
+        <PrevNextButtons />
       </article>
       
       <div className="flex-grow">
