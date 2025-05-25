@@ -3,9 +3,7 @@ import Link from "next/link";
 import { AnimatedDiv } from "./components/AnimatedDiv";
 import { ThemeSwitcher } from "./components/ThemeSwitcher";
 
-// --- BAGIAN YANG DIPERBAIKI (1) ---
-// Kita definisikan "bentuk" atau tipe dari setiap objek link.
-// React.ReactNode adalah tipe yang tepat untuk menampung komponen React seperti ikon.
+// Tipe CardLink tetap sama
 type CardLink = {
   icon: React.ReactNode;
   title: string;
@@ -13,8 +11,7 @@ type CardLink = {
   link: string;
 };
 
-// --- BAGIAN YANG DIPERBAIKI (2) ---
-// Kita terapkan tipe CardLink[] (sebuah array dari CardLink) ke variabel cardLinks.
+// Data cardLinks tetap sama
 const cardLinks: CardLink[] = [
   {
     icon: <FaDiscord className="h-8 w-8 text-primary" />,
@@ -32,7 +29,8 @@ const cardLinks: CardLink[] = [
     icon: <FaBook className="h-8 w-8 text-primary" />,
     title: "Tutor All Node",
     description: "Panduan lengkap seputar node.",
-    link: "/tutor/introduction",
+    // --- UBAH BARIS INI ---
+    link: "/tutor", // Arahkan ke halaman utama tutorial
   },
   {
     icon: <FaCode className="h-8 w-8 text-primary" />,
@@ -60,13 +58,13 @@ export default function HomePage() {
                 SYD Node
               </h1>
             </AnimatedDiv>
-<AnimatedDiv delay={0.2}>
-  <div className="inline-block"> {/* Pastikan ada div pembungkus ini */}
-    <p className="font-mono text-lg md:text-xl text-gray-600 dark:text-gray-300 overflow-hidden border-r-4 border-r-accentGlow whitespace-nowrap mx-auto md:mx-0 animate-typing">
-      Keep learning by siting!
-    </p>
-  </div>
-</AnimatedDiv>
+            <AnimatedDiv delay={0.2}>
+              <div className="inline-block">
+                <p className="font-mono text-lg md:text-xl text-gray-600 dark:text-gray-300 overflow-hidden border-r-4 border-r-accentGlow whitespace-nowrap mx-auto md:mx-0 animate-typing">
+                  Keep learning by siting!
+                </p>
+              </div>
+            </AnimatedDiv>
             <AnimatedDiv delay={0.4}>
               <p className="text-gray-500 dark:text-gray-400 mt-2">
                 Platform untuk para antusias teknologi, node runner, dan developer yang suka bereksperimen.
@@ -84,17 +82,24 @@ export default function HomePage() {
             </AnimatedDiv>
           </div>
 
+          {/* --- BAGIAN VISUAL DIGANTI DENGAN DOTLOTTIE-PLAYER --- */}
           <AnimatedDiv delay={0.3}>
-            <div className="flex items-center justify-center p-8">
-              <div className="w-full h-80 bg-white/50 dark:bg-white/5 border border-gray-200 dark:border-white/10 rounded-2xl shadow-xl dark:backdrop-blur-lg flex items-center justify-center">
-                <p className="text-gray-400 dark:text-gray-500 font-mono">
-                  [ Visual Animasi Futuristik ]
-                </p>
+            <div className="flex items-center justify-center p-4 md:p-8 h-full">
+              <div className="w-full max-w-md"> {/* Atur lebar maksimum untuk kontainer animasi */}
+                <dotlottie-player
+                  src="https://lottie.host/bda12c3d-37ae-49c8-864e-047a0df724eb/KR9qZztbfE.lottie"
+                  background="transparent"
+                  speed="1"
+                  style={{ width: '300%', height: 'auto', maxWidth: '400px', margin: 'auto' }} // Style agar responsif dan terpusat
+                  loop
+                  autoplay
+                ></dotlottie-player>
               </div>
             </div>
           </AnimatedDiv>
         </section>
 
+        {/* Bagian Card Section tetap sama */}
         <section id="tools" className="py-20">
           <AnimatedDiv>
             <h2 className="text-4xl font-bold text-center mb-12 text-gray-900 dark:text-white">
